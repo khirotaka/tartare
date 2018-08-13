@@ -1,0 +1,4 @@
+NumPy>=1.14.5
+SciPy>=1.1.0
+Pillow>=5.2.0
+Scikit-Learn>=0.19.2

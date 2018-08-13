@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: tartare
+Version: 0.1.2
+Summary: Make homebrew image dataset for machine learning.
+Home-page: https://github.com/KawashimaHirotaka/tartare
+Author: Hirotaka Kawashima
+Author-email: kawashima34@gmail.com
+License: MIT
+Description: UNKNOWN
+Keywords: dataset
+Platform: UNKNOWN

@@ -1,0 +1,9 @@
+README.md
+setup.py
+tartare/Vision.py
+tartare/__init__.py
+tartare.egg-info/PKG-INFO
+tartare.egg-info/SOURCES.txt
+tartare.egg-info/dependency_links.txt
+tartare.egg-info/requires.txt
+tartare.egg-info/top_level.txt
