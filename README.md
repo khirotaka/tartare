@@ -85,7 +85,7 @@ You can receive `.npz` file with contained image data & label
 **Caution:** When creating an `.npz` file with MakeCategory (), 
 make sure that the number of original image files is the same for all categories.
 
-**f you are Mac user, try to remove `.DS_Store` file.**
+**If you are Mac user, try to remove `.DS_Store` file.**
 
 
 - `target_dir` : Directory name where images of categories are saved.
