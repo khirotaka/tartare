@@ -48,6 +48,7 @@ Precondition
 
 You can augment your images.
 
+#### augment function
 - `mirror=True` : Flips the specified image horizontally.
 - `flip=True` : Flip the specified image vertically.
 - `brightness=True` : Decrease the brightness of the specified image randomly.
@@ -56,6 +57,9 @@ You can augment your images.
 make a mask 0.3 - 0.5 times the length of the shorter side, and mask the random position of the image.
 Create 5 pictures.
 
+#### scaling function
+- `scale` : Scaling rate (Float)
+Make new Directory and save scaled images in those directory.
 
 `tutorial.py`
 ---
@@ -74,6 +78,9 @@ DataAugmentation("melon").init().augment(mirror=True,
                                          brightness=True,
                                          contrast=True,
                                          mask=True)
+                                         
+DataAugmentation("apple").init().scaling(scale=1.5)
+DataAugmentation("melon").init().scaling(scale=1.5)
 ```
 
 
@@ -91,6 +98,7 @@ make sure that the number of original image files is the same for all categories
 - `target_dir` : Directory name where images of categories are saved.
 - `label` : Correct answer label for supervised learning.
 - `size` : Image size when saving. Tuple. (width, height).
+- `mode` : Choose a `"RGB"` or a `"gray"`.
 - `filename`: File name when output.
 - `verbose` : When True is selected, when the file output succeeds, the result is output.
 
@@ -99,8 +107,8 @@ make sure that the number of original image files is the same for all categories
 ```
 from tartare.Vision import MakeCategory
 
-MakeCategory(target_dir="apple").init(label=0, size=(64, 64)).export_category(filename="apple.npz", verbose=True)
-MakeCategory(target_dir="melon").init(label=1, size=(64, 64)).export_category(filename="melon.npz", verbose=True)
+MakeCategory(target_dir="apple").init(label=0, size=(64, 64), mode="RGB").export_category(filename="apple.npz", verbose=True)
+MakeCategory(target_dir="melon").init(label=1, size=(64, 64), mode="RGB").export_category(filename="melon.npz", verbose=True)
 
 ```
 

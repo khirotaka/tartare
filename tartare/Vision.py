@@ -42,6 +42,7 @@ class DataAugmentation(object):
         :param target_dir: String
             Target directory name
         """
+        self.target_dir = target_dir
         self.__current_path = os.getcwd()                                   # カレントディレクトリを取得
         self.__target_path = self.__current_path + "/" + target_dir
         self.__file_path = []
@@ -204,6 +205,30 @@ class DataAugmentation(object):
                     masked_img = self._random_masked(img)
                     self.__write_image(masked_img, "/masked_{}_{}".format(j, self.__file_name[i]))
 
+    def scaling(self, scale=1.5):
+        """
+        :param scale: Float
+        :return: Image file
+        """
+        new_dirname = "scaled_{}".format(self.target_dir)
+        os.makedirs(new_dirname)
+
+        for i, file in enumerate(self.__file_path):
+            img = Image.open(file)
+            img = img.resize((int(img.size[0] * scale), int(img.size[1] * scale)))
+            try:
+                img.save("{}/{}/{}.jpg".format(self.__current_path, new_dirname, i))
+
+            except OSError:
+                print("*" * 20)
+                print("ERROR: {}".format(OSError))
+                print("*" * 20)
+
+            except MemoryError:
+                print("*" * 20)
+                print("ERROR: {}".format(MemoryError))
+                print("*" * 20)
+
 
 class MakeCategory(object):
     """Create an .npz file which containing image arrays and labels.
@@ -240,7 +265,7 @@ class MakeCategory(object):
                 break
         return self
 
-    def __read_image(self, size=(64, 64)):                                        # 画像ファイルをnumpy配列にして、それを配列に格納
+    def __read_image(self, size=(64, 64), mode="RGB"):                                        # 画像ファイルをnumpy配列にして、それを配列に格納
         """Convert the image in the specified directory to NumPy array
          based on the file name obtained by the `__get_image_name()` method.
 
@@ -248,13 +273,20 @@ class MakeCategory(object):
         """
         for file_name in self.__file_names:
             img = Image.open(file_name)
-            if type(img) is JpegImageFile:
+            if mode == "gray":
+                img = img.convert("L")
                 img = img.resize(size)
                 img = np.array(img)
                 self.__image_files.append(img)
+
             else:
-                sys.stderr.write("ERROR: Unsupported file format. This version only supports JPEG format.\n")
-                break
+                if type(img) is JpegImageFile:
+                    img = img.resize(size)
+                    img = np.array(img)
+                    self.__image_files.append(img)
+                else:
+                    sys.stderr.write("ERROR: Unsupported file format. This version only supports JPEG format.\n")
+                    break
         return self
 
     def __make_label(self, label=0):
@@ -272,7 +304,7 @@ class MakeCategory(object):
         else:
             print("Error: The value assigned to the label variable must be `Positive Integer`.")
 
-    def init(self, label, size):
+    def init(self, label, size, mode="RGB"):
         """Convert the image in the target directory to NumPy array and assign an appropriate label.
 
         :param label: Int
@@ -280,10 +312,12 @@ class MakeCategory(object):
 
         :param size: (Int, Int)
 
+        :param mode Image mode: if "RGB" Read Image as Color, if "gray", Read Image as Gray.
+
 
         :return:
         """
-        self.__get_image_name().__read_image(size=size).__make_label(label=label)
+        self.__get_image_name().__read_image(size=size, mode=mode).__make_label(label=label)
         return self
 
     def export_category(self, filename, verbose=False):                                 # ファイルの書きだし、ファイル名のみで良い。.npzは不要

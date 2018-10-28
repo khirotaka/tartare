@@ -13,8 +13,8 @@ DataAugmentation("melon").init().augment(mirror=True,
                                          contrast=True,
                                          mask=True)
 
-MakeCategory(target_dir="apple").init(label=0, size=(64, 64)).export_category(filename="apple.npz", verbose=True)
-MakeCategory(target_dir="melon").init(label=1, size=(64, 64)).export_category(filename="melon.npz", verbose=True)
+MakeCategory(target_dir="apple").init(label=0, size=(64, 64), mode="RGB").export_category(filename="apple.npz", verbose=True)
+MakeCategory(target_dir="melon").init(label=1, size=(64, 64), mode="RGB").export_category(filename="melon.npz", verbose=True)
 
 BuildDataset("apple.npz", "melon.npz").export_dataset(filename="apple_melon.npz", verbose=True)
 
