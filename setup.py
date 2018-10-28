@@ -8,7 +8,7 @@ requires = ["NumPy >=1.14.5",
 
 setup(
     name="tartare",
-    version='0.1.2',
+    version='0.1.3',
     description="Make homebrew image dataset for machine learning.",
     url="https://github.com/KawashimaHirotaka/tartare",
     author="Hirotaka Kawashima",
