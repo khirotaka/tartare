@@ -63,8 +63,7 @@ Make new Directory and save scaled images in those directory.
 
 `tutorial.py`
 ---
-```
-# coding: utf-8
+```python
 from tartare.Vision import DataAugmentation
 
 DataAugmentation("apple").init().augment(mirror=True,
@@ -104,7 +103,7 @@ make sure that the number of original image files is the same for all categories
 
 `tutorial.py`
 ---
-```
+``` python
 from tartare.Vision import MakeCategory
 
 MakeCategory(target_dir="apple").init(label=0, size=(64, 64), mode="RGB").export_category(filename="apple.npz", verbose=True)
@@ -125,7 +124,7 @@ make sure that the number of original image files is the same for all categories
 
 `tutorial.py`
 ---
-```
+```python
 from tartare.Vision import BuildDataset
 
 BuildDataset("apple.npz", "melon.npz").export_dataset(filename="apple_melon.npz",verbose=True)
@@ -143,7 +142,7 @@ The image (tensor) and label (two dimensions) are given as return values.
 
 `tutorial.py`
 ---
-```
+```python
 from tartare.Vision import ExpandImgData
 
 (x_train, y_train), (x_test, y_test) = ExpandImgData(filename="apple_melon.npz").load_data(test_size=0.3,
@@ -156,8 +155,7 @@ from tartare.Vision import ExpandImgData
  
 `Sample_NN.py`
 ---
-```
-# coding: utf-8
+```python
 from keras.utils import np_utils
 from keras.models import Sequential
 from keras.layers import Dense
